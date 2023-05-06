@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="40dp"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/message_puzzle"
         android:textSize="16sp"
@@ -107,10 +107,10 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            tools:ignore="DuplicateIds"
-            android:contentDescription="@string/content_Description" />
+            android:contentDescription="@string/content_Description"
+            tools:ignore="DuplicateIds" />
     </LinearLayout>
 
     <TextView

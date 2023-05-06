@@ -2,7 +2,7 @@
     <string name="app_name">StudyStar</string>
     <string name="message">Pick the correct category</string>
     <string name="show_btn">show</string>
-    <string name="message_puzzle">For the upcoming question, you will be presented with an image of either a shape or a color, and you need to select the right answer.</string>
+    <string name="message_puzzle">You will be presented with an image of either a shape or a color, and you need to select the right answer.</string>
     <string name="message_option">Pick the correct option</string>
     <string name="initial_txt">Button</string>
     <string name="score_txt">Your Score : </string>
