@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, items.getcat());
         categorySpinner.setAdapter(categoryAdapter);
 
+        String selectedCategory = categorySpinner.getSelectedItem().toString();
+        List<Item> itemList = items.getItemsByCat(selectedCategory);
+        itemAdapter.setItems(itemList);
+
         showButton = findViewById(R.id.button);
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
