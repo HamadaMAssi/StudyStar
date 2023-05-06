@@ -27,13 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Spinner categorySpinner;
     private Button showButton;
-
     private Button puzzuleButton;
     private ListView itemListView;
     private ItemAdapter itemAdapter;
-
-    int cat, number, score = 0;
-    String correctResult, incorrectResult1, incorrectResult2;
+    int cat, number, score = 0; // for puzzle
+    String correctResult, incorrectResult1, incorrectResult2; // for puzzle results
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         List<Item> itemList = items.getItemsByCat(selectedCategory);
         itemAdapter.setItems(itemList);
 
-        showButton = findViewById(R.id.button);
+        showButton = findViewById(R.id.button); // show items (colors or shapes)
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,25 +77,25 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout puzzle5 = findViewById(R.id.puzzle5);
         LinearLayout puzzle6 = findViewById(R.id.puzzle6);
 
-        puzzuleButton = findViewById(R.id.Button2);
+        puzzuleButton = findViewById(R.id.Button2); // hide some components and show the puzzle components because we must use single activity
         puzzuleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Perform action on click
                 TextView textView = (TextView) findViewById(R.id.textView2);
                 if (categorySpinner.getVisibility() == View.VISIBLE) {
-                    categorySpinner.setVisibility(View.GONE);
+                    categorySpinner.setVisibility(View.GONE); // hide
                     itemListView.setVisibility(View.GONE);
                     showButton.setVisibility(View.GONE);
                     textView.setVisibility(View.GONE);
                     puzzuleButton.setText("back");
-                    puzzle1.setVisibility(View.VISIBLE);
+                    puzzle1.setVisibility(View.VISIBLE); // show
                     puzzle2.setVisibility(View.VISIBLE);
                     puzzle3.setVisibility(View.VISIBLE);
                     puzzle4.setVisibility(View.VISIBLE);
                     puzzle5.setVisibility(View.VISIBLE);
                     puzzle6.setVisibility(View.VISIBLE);
-                    GetRandom(0); // Generate random numbers
+                    GetRandom(0); // Generate random color or shape
                 } else {
                     categorySpinner.setVisibility(View.VISIBLE);
                     itemListView.setVisibility(View.VISIBLE);
@@ -117,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         num1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetRandom(1); // generating new random number for num1
+                GetRandom(1); // generating new random item for num1
                 scoreText.setText(String.valueOf(score)); // convert score to String to display it in the TextView
             }
         });
@@ -133,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     TOAST_TEXT = "Incorrect !";
                 }
                 Toast.makeText(MainActivity.this, TOAST_TEXT, Toast.LENGTH_SHORT).show();
-                scoreText.setText(String.valueOf(score));
+                scoreText.setText(String.valueOf(score)); // toast notification
                 GetRandom(0);
             }
         });
@@ -178,13 +176,10 @@ public class MainActivity extends AppCompatActivity {
                 scoreText.setText(String.valueOf(score));
             }
         });
-
     }
-
 
     private class ItemAdapter extends BaseAdapter {
         private List<Item> itemList = new ArrayList<>();
-
         public void setItems(List<Item> itemList) {
             this.itemList = itemList;
             notifyDataSetChanged();
@@ -207,18 +202,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            // to add item image and name in view then add it to list view with good style
             View view = convertView;
             if (view == null) {
                 LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                 view = inflater.inflate(R.layout.list_item, parent, false);
             }
-
             Item item = itemList.get(position);
             TextView nameTextView = view.findViewById(R.id.text_view);
             ImageView imageView = view.findViewById(R.id.image_view);
             nameTextView.setText(item.getName());
             imageView.setImageResource(item.getImage());
-
             return view;
         }
     }

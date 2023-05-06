@@ -4,7 +4,6 @@ public class Item {
 
     private  int id;
     private String name;
-
     private int image;
     private  String category;
 
@@ -14,6 +13,7 @@ public class Item {
         this.image = image;
         this.category = category;
     }
+
     public int getId() {
         return id;
     }

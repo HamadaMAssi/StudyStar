@@ -34,7 +34,6 @@ public class DAItem {
     public List<Item> getItemsByCat(String cat)
     {
         List<Item> itemList =new ArrayList<>();
-
         for (Item i:items) {
             if(i.getCategory().equals(cat))
             {
@@ -42,12 +41,10 @@ public class DAItem {
             }
         }
         return itemList;
-
     }
 
     public String[] getcat()
     {
-        String[] cat={"colors","shapes"};
-        return  cat;
+        return new String[]{"colors","shapes"};
     }
 }

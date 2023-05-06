@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:paddingTop="30dp"
         android:paddingBottom="10dp"
-        android:text="StudyStar"
+        android:text="@string/app_name"
         android:textColor="@color/color2"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -27,7 +27,8 @@
         android:layout_height="75dp"
         android:background="@color/color6"
         app:srcCompat="@drawable/r"
-        tools:srcCompat="@drawable/r" />
+        tools:srcCompat="@drawable/r"
+        android:contentDescription="@string/content_Description" />
 
     <TextView
         android:id="@+id/textView2"
@@ -37,18 +38,9 @@
         android:gravity="center_horizontal"
         android:paddingTop="15dp"
         android:paddingBottom="5dp"
-        android:text="Pick the correct category"
+        android:text="@string/message"
         android:textSize="16sp" />
 
-<!--    <Spinner-->
-<!--        android:id="@+id/spinner"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:background="@color/color6"-->
-<!--        android:padding="1dp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:gravity="center"-->
-<!--        android:contentDescription="Select" />-->
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
@@ -57,7 +49,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:gravity="center"
-        android:contentDescription="select"/>
+        android:contentDescription="@string/select"/>
 
 
 
@@ -76,7 +68,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_style"
             android:paddingHorizontal="50dp"
-            android:text="show"
+            android:text="@string/show_btn"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -96,12 +88,13 @@
         android:id="@+id/puzzle1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
+        android:paddingStart="40dp"
         android:paddingTop="40dp"
         android:paddingBottom="20dp"
-        android:text="For the upcoming question, you'll be presented with an image of either a shape or a color, and you need to select the right answer."
+        android:text="@string/message_puzzle"
         android:textSize="16sp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry" />
 
     <LinearLayout
         android:id="@+id/puzzle2"
@@ -113,10 +106,11 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="100px"
-            android:layout_height="100px"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            tools:ignore="DuplicateIds" />
+            tools:ignore="DuplicateIds"
+            android:contentDescription="@string/content_Description" />
     </LinearLayout>
 
     <TextView
@@ -126,7 +120,7 @@
         android:gravity="center_horizontal"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
-        android:text="Pick the correct option"
+        android:text="@string/message_option"
         android:textSize="20sp"
         android:visibility="gone"
         tools:ignore="DuplicateIds" />
@@ -144,31 +138,34 @@
             android:id="@+id/result1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="Button"
-            android:textColor="@color/white"/>
+            android:text="@string/initial_txt"
+            android:textColor="@color/white"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/result2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="Button"
-            android:textColor="@color/white"/>
+            android:text="@string/initial_txt"
+            android:textColor="@color/white"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/result3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="Button"
-            android:textColor="@color/white"/>
+            android:text="@string/initial_txt"
+            android:textColor="@color/white"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -185,9 +182,9 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:text="Your Score : "
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="@string/score_txt"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -195,8 +192,8 @@
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20px"
-            android:text="0"
+            android:padding="20dp"
+            android:text="@string/start_score"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -212,12 +209,12 @@
 
         <Button
             android:id="@+id/restart"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_weight="1"
             android:background="@drawable/btn_style"
-            android:text="restart"
+            android:text="@string/restart_btn"
             android:textColor="@color/white"/>
     </LinearLayout>
 
@@ -225,9 +222,10 @@
         android:id="@+id/Button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_style"
         android:layout_marginHorizontal="15dp"
-        android:text="Start puzzle"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/btn_style"
+        android:text="@string/puzzle_btn"
         android:textColor="@color/white" />
 
 </LinearLayout>
