@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private Button showButton;
     private Button puzzuleButton;
-    private RecyclerView recycler;
+    private RecyclerView myRecyclerView;
 
     int cat, number, score = 0; // for puzzle
     String correctResult, incorrectResult1, incorrectResult2; // for puzzle results
@@ -49,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         categorySpinner = findViewById(R.id.spinner);
-        recycler = findViewById(R.id.item_recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerView = findViewById(R.id.item_recycler);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // get views
         ImageView num1 = (ImageView) findViewById(R.id.imageView2);
         Button result1 = (Button) findViewById(R.id.result1);
         Button result2 = (Button) findViewById(R.id.result2);
@@ -59,39 +60,17 @@ public class MainActivity extends AppCompatActivity {
         Button restart = (Button) findViewById(R.id.restart);
         TextView scoreText=(TextView) findViewById(R.id.score);
 
-
-        //DAItem items = new DAItem();
-//        ********************************      *****************       *****************************
-
+        // categories
         String[] options = { "colors", "shapes" };
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String str = prefs.getString("myData", "");
+        SharedPreferences data_prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String dataString = data_prefs.getString("myData", "");// read from sharedPrefs
 
-        if (str.isEmpty()) {
+        if (dataString.isEmpty()) {
             // if my shared preferences is empty i will fill it with default data
-            List<Item> items = new ArrayList<>();
+            List<Item> items = SharedPreferencesDefaultsValue();
 
-            items.add(new Item(1, "Blue", R.drawable.color1, "colors"));
-            items.add(new Item(2, "Yellow", R.drawable.color2, "colors"));
-            items.add(new Item(3, "Red", R.drawable.color3, "colors"));
-            items.add(new Item(4, "Pink", R.drawable.color4, "colors"));
-            items.add(new Item(5, "White", R.drawable.color5, "colors"));
-            items.add(new Item(6, "gray", R.drawable.color6, "colors"));
-            items.add(new Item(7, "Black", R.drawable.color7, "colors"));
-            items.add(new Item(8, "Green", R.drawable.color8, "colors"));
-
-            items.add(new Item(9, "Square", R.drawable.square, "shapes"));
-            items.add(new Item(10, "Rectangle", R.drawable.rectangle, "shapes"));
-            items.add(new Item(11, "Triangle ", R.drawable.triangle, "shapes"));
-            items.add(new Item(12, "Circle  ", R.drawable.color2, "shapes"));
-            items.add(new Item(13, "Star   ", R.drawable.star, "shapes"));
-            items.add(new Item(14, "Rhombus", R.drawable.rhombus, "shapes"));
-            items.add(new Item(15, "Pentagon", R.drawable.pentagon, "shapes"));
-            items.add(new Item(16, "Hexagon", R.drawable.hexagon, "shapes"));
-            items.add(new Item(17, "Heptagon", R.drawable.heptagon, "shapes"));
-
-            SharedPreferences.Editor editor = prefs.edit();
+            SharedPreferences.Editor editor = data_prefs.edit();
             Gson gson = new Gson();
             String itemsString = gson.toJson(items); // to string
 
@@ -99,27 +78,25 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
 
             itemsFromSharedPref = items; // my data to show
-            Toast.makeText(this, "Add Data into shared preferences successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Add Data into shared preferences successfully!", Toast.LENGTH_LONG).show();
         } else {
             // if shared preferences not empty
             Gson gson = new Gson();
             Type itemListType = new TypeToken<ArrayList<Item>>() {}.getType();
-            itemsFromSharedPref = gson.fromJson(str, itemListType);
-            Toast.makeText(this, "Read Data from shared preferences successfully", Toast.LENGTH_LONG).show();
+            itemsFromSharedPref = gson.fromJson(dataString, itemListType);
+            Toast.makeText(this, "Read Data from shared preferences successfully!", Toast.LENGTH_LONG).show();
         }
 
-
-//        ********************************      *****************       *****************************
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(MainActivity.this,
-                android.R.layout.simple_spinner_dropdown_item, options);
+                android.R.layout.simple_spinner_dropdown_item, options);// set spinner data
         categorySpinner.setAdapter(categoryAdapter);
 
-        String selectedCategory = categorySpinner.getSelectedItem().toString();
+        String selectedCategory = categorySpinner.getSelectedItem().toString();// return selected item
 
         List<Item> itemList = getItemsByCat(selectedCategory);
         CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(MainActivity.this,
                 itemList);
-        recycler.setAdapter(adapter);
+        myRecyclerView.setAdapter(adapter);
 
         showButton = findViewById(R.id.button); // show items (colors or shapes)
         showButton.setOnClickListener(new View.OnClickListener() {
@@ -129,10 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 List<Item> itemList = getItemsByCat(selectedCategory);
                 CaptionedImagesAdapter adapter = new CaptionedImagesAdapter(MainActivity.this,
                         itemList);
-                recycler.setAdapter(adapter);
+                myRecyclerView.setAdapter(adapter);
             }
         });
 
+        // get puzzle views
         TextView puzzle1 = findViewById(R.id.puzzle1);
         LinearLayout puzzle2 = findViewById(R.id.puzzle2);
         TextView puzzle3 = (TextView) findViewById(R.id.puzzle3);
@@ -148,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.textView2);
                 if (categorySpinner.getVisibility() == View.VISIBLE) {
                     categorySpinner.setVisibility(View.GONE); // hide
-                    recycler.setVisibility(View.GONE);
+                    myRecyclerView.setVisibility(View.GONE);
                     showButton.setVisibility(View.GONE);
                     textView.setVisibility(View.GONE);
                     puzzuleButton.setText("back");
@@ -161,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     GetRandom(0); // Generate random color or shape
                 } else {
                     categorySpinner.setVisibility(View.VISIBLE);
-                    recycler.setVisibility(View.VISIBLE);
+                    myRecyclerView.setVisibility(View.VISIBLE);
                     showButton.setVisibility(View.VISIBLE);
                     textView.setVisibility(View.VISIBLE);
                     puzzuleButton.setText("start puzzle");
@@ -241,7 +219,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //    *******************************       **********************      *******************************
+    public List<Item> SharedPreferencesDefaultsValue()
+    {
+        List<Item> items = new ArrayList<>();
+
+        items.add(new Item(1, "Blue", R.drawable.color1, "colors"));
+        items.add(new Item(2, "Yellow", R.drawable.color2, "colors"));
+        items.add(new Item(3, "Red", R.drawable.color3, "colors"));
+        items.add(new Item(4, "Pink", R.drawable.color4, "colors"));
+        items.add(new Item(5, "White", R.drawable.color5, "colors"));
+        items.add(new Item(6, "gray", R.drawable.color6, "colors"));
+        items.add(new Item(7, "Black", R.drawable.color7, "colors"));
+        items.add(new Item(8, "Green", R.drawable.color8, "colors"));
+
+        items.add(new Item(9, "Square", R.drawable.square, "shapes"));
+        items.add(new Item(10, "Rectangle", R.drawable.rectangle, "shapes"));
+        items.add(new Item(11, "Triangle ", R.drawable.triangle, "shapes"));
+        items.add(new Item(12, "Circle  ", R.drawable.color2, "shapes"));
+        items.add(new Item(13, "Star   ", R.drawable.star, "shapes"));
+        items.add(new Item(14, "Rhombus", R.drawable.rhombus, "shapes"));
+        items.add(new Item(15, "Pentagon", R.drawable.pentagon, "shapes"));
+        items.add(new Item(16, "Hexagon", R.drawable.hexagon, "shapes"));
+        items.add(new Item(17, "Heptagon", R.drawable.heptagon, "shapes"));
+        return items;
+    }
+
     public List<Item> getItemsByCat(String cat)
     {
         List<Item> itemList =new ArrayList<>();
@@ -253,7 +255,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return itemList;
     }
-    //    *******************************       **********************      *******************************
 
     String TOAST_TEXT = " correct ";
 

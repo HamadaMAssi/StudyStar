@@ -17,11 +17,9 @@ import java.util.List;
 
 import edu.birzeit.studystar.R;
 
-public class CaptionedImagesAdapter
-        extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>{
+public class CaptionedImagesAdapter extends RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>{
     private Context context;
     private List<Item> items;
-
 
     public CaptionedImagesAdapter(Context context, List<Item> items){
         this.context = context;
@@ -35,7 +33,6 @@ public class CaptionedImagesAdapter
 
         return new ViewHolder(v);
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Item item = items.get(position);
@@ -61,12 +58,10 @@ public class CaptionedImagesAdapter
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return items.size();
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView cardView;
         public ViewHolder(CardView cardView){
